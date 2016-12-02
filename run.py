@@ -3,6 +3,7 @@ import pandas as pd
 import warnings
 warnings.filterwarnings('ignore')
 import re
+import time
 
 def remove_gsa_gov(email):
     return re.sub('@gsa.gov', '', email).lower()
@@ -54,7 +55,10 @@ if __name__ == "__main__":
     from tabulate import tabulate
     import sys
 
-    start_date = sys.argv[1]
+    try:
+        start_date = sys.argv[1]
+    except:
+        start_date = time.strftime("%Y-%d-%m")
 
     timecards = Timecards(start_date).timecards
     roster = get_roster(timecards)
